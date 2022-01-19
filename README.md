@@ -144,6 +144,48 @@ REINDEX INDEX test_x_idx;
 REINDEX SCHEMA public;
 ```
 
+## Query
+
+### Create user
+
+Create a user:
+```sql
+CREATE USER admin WITH ENCRYPTED PASSWORD 'admin';
+```
+
+Grant the operation rights:
+```sql
+GRANT ALL PRIVILEGES ON DATABASE test TO admin;
+GRANT USAGE ON SCHEMA test_schema TO admin;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA test_schema TO admin;
+```
+
+### Index
+
+Create an index:
+```sql
+CREATE INDEX test_index ON test.test_schema(key);
+```
+
+Select all the indexes given a specified table:
+```sql
+SELECT * FROM pg_indexes WHERE tablename like 'test%';
+```
+
+### Temp Table
+
+Create a temp table:
+```sql
+CREATE TEMP TABLE temp_test AS SELECT * FROM test WHERE key > 10;
+```
+
+Find the schema for a specified temp table:
+```sql
+SELECT pn.nspname, pc.relname 
+FROM pg_class pc, pg_namespace pn 
+WHERE pc.relnamespace = pn.oid and pc.relname ilike 'temp_test';
+```
+
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
 * https://spin.atomicobject.com/2021/02/04/redis-postgresql/
