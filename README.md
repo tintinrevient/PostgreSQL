@@ -8,7 +8,7 @@ This table can be identified easily, as there is no foreign-key contraint on it.
 
 ![the_meeting_at_the_golden_gate_giotto](pix/the_meeting_at_the_golden_gate_giotto.jpg)
 
-## Benchmarking
+## Benchmark
 
 ### Test
 ```python
@@ -184,6 +184,49 @@ Find the schema for a specified temp table:
 SELECT pn.nspname, pc.relname 
 FROM pg_class pc, pg_namespace pn 
 WHERE pc.relnamespace = pn.oid and pc.relname ilike 'temp_test';
+```
+
+## Performance
+
+### Options
+
+Option 1 is to delete the rows that match the condition directly from the big table.
+
+```sql
+CREATE TEMP TABLE temp_test AS
+SELECT t.key FROM test t WHERE t.key > 100 AND t.key <= 200;
+
+DELETE FROM test t
+USING temp_test tt
+WHERE tt.key = t.key;
+			
+DROP TABLE temp_test;
+```
+
+Option 2 is to save the rows that DON'T match the condition into a temp table, truncate the big table and insert the rows from the temp table back into the big table.
+
+```sql
+BEGIN; -- typically faster and safer wrapped in a single transaction
+
+SET LOCAL temp_buffers = '1000MB'; -- enough to hold the temp table
+
+CREATE TEMP TABLE temp_test AS
+SELECT t.* FROM test t WHERE t.key > 100 AND t.key <= 200; -- copy surviving rows into temporary table
+
+TRUNCATE test; -- empty table - truncate is very fast for big tables
+
+INSERT INTO test SELECT * FROM temp_test; -- insert back surviving rows
+
+COMMIT;
+```
+
+### Result
+
+For a million rows of data, the average deletion time is round 3-5 seconds. The above two options vary slightly with respect to the execution time.
+
+The factors `index` as below and `transaction` as above don't contribute noticeably to the performance.
+```sql
+CREATE INDEX test_key_idx on test(key);
 ```
 
 ## References
