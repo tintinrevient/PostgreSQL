@@ -227,10 +227,15 @@ For a million rows of data, the average deletion time is round 3-5 seconds. The 
 The factors `index` as below and `transaction` as above don't contribute noticeably to the performance.
 ```sql
 CREATE INDEX test_key_idx on test(key);
+
+SELECT t.* FROM test t 
+WHERE t.key > 100 AND t.key <= 200;
 ```
 
 With the column `created` introduced for all the rows, it takes some time to filter the condition on timestamp. However, `index` on the `created` column contributes unnoticeably to the performance.
 ```sql
+CREATE INDEX test_created_idx on test(created);
+
 SELECT * FROM test t
 WHERE DATE_PART('day', now()::timestamp - t.created::timestamp) > 3
 ```
