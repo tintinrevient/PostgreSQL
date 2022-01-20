@@ -229,6 +229,12 @@ The factors `index` as below and `transaction` as above don't contribute noticea
 CREATE INDEX test_key_idx on test(key);
 ```
 
+With the column `created` introduced for all the rows, it takes some time to filter the condition on timestamp. However, `index` on the `created` column contributes unnoticeably to the performance.
+```sql
+SELECT * FROM test t
+WHERE DATE_PART('day', now()::timestamp - t.created::timestamp) > 3
+```
+
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
 * https://spin.atomicobject.com/2021/02/04/redis-postgresql/
