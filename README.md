@@ -222,7 +222,9 @@ COMMIT;
 
 ### Result
 
-For a million rows of data, the average deletion time is round 3-5 seconds. The above two options vary slightly with respect to the execution time.
+For a million rows of data, the average deletion time is round `3-5 seconds`. The above two options vary slightly with respect to the execution time.
+
+#### Index
 
 The factors `index` as below and `transaction` as above don't contribute noticeably to the performance.
 ```sql
@@ -239,6 +241,14 @@ CREATE INDEX test_created_idx on test(created);
 SELECT * FROM test t
 WHERE DATE_PART('day', now()::timestamp - t.created::timestamp) > 3
 ```
+
+#### Unlogged
+
+The `unlogged tables` are for you if:
+* `data consistency` after a server crash is not an issue;
+* `disposable table` is used that can get extra boost for `writing`.
+
+The `Write-Ahead Logging` (WAL) system is a key component of what makes Postgres reliable. What makes writing a lot faster is that the `logging daemon` is disabled entirely for the table that is flagged as `UNLOGGED`. It is also used for `replication` by Compose for a failover. For a `UNLOGGED` table, when you write to it, it will never be copied to the secondary server, so if a failover happens, the secondary server will always come up with completely empty tables.
 
 With the table altered as `unlogged`, to insert a million rows of data, the insertion time is `320 seconds`.
 ```sql
