@@ -240,7 +240,7 @@ SELECT * FROM test t
 WHERE DATE_PART('day', now()::timestamp - t.created::timestamp) > 3
 ```
 
-With the table altered as `unlogged`, 
+With the table altered as `unlogged`, to insert a million rows of data, the insertion time is `320 seconds`.
 ```sql
 ALTER TABLE test SET UNLOGGED;
 ```
