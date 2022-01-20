@@ -269,3 +269,4 @@ ALTER TABLE test SET LOGGED;
 * https://wiki.postgresql.org/wiki/Slow_Query_Questions
 * https://wiki.postgresql.org/wiki/Performance_Optimization
 * https://www.highgo.ca/2021/03/20/how-to-check-and-resolve-bloat-in-postgresql/
+* https://developer.aiven.io/docs/products/postgresql/reference/pg-metrics
