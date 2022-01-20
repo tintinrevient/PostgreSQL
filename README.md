@@ -235,6 +235,11 @@ SELECT * FROM test t
 WHERE DATE_PART('day', now()::timestamp - t.created::timestamp) > 3
 ```
 
+With the table altered as `unlogged`, 
+```sql
+ALTER TABLE test SET UNLOGGED;
+```
+
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
 * https://spin.atomicobject.com/2021/02/04/redis-postgresql/
