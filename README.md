@@ -245,6 +245,11 @@ With the table altered as `unlogged`, to insert a million rows of data, the inse
 ALTER TABLE test SET UNLOGGED;
 ```
 
+With the table altered as `logged`, to insert a million rows of data, the insertion time is `320 seconds`.
+```sql
+ALTER TABLE test SET LOGGED;
+```
+
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
 * https://spin.atomicobject.com/2021/02/04/redis-postgresql/
