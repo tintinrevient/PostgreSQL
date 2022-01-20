@@ -255,7 +255,7 @@ With the table altered as `unlogged`, to insert a million rows of data, the inse
 ALTER TABLE test SET UNLOGGED;
 ```
 
-With the table altered as `logged`, to insert a million rows of data, the insertion time is `320 seconds`.
+With the table altered as `logged`, to insert a million rows of data, the insertion time is `1247 seconds`.
 ```sql
 ALTER TABLE test SET LOGGED;
 ```
