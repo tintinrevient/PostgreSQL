@@ -157,6 +157,7 @@ Grant the operation rights:
 ```sql
 GRANT ALL PRIVILEGES ON DATABASE test TO admin;
 GRANT USAGE ON SCHEMA test_schema TO admin;
+GRANT USAGE, SELECT ON SEQUENCE test_seq TO admin;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA test_schema TO admin;
 ```
 
