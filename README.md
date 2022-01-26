@@ -146,7 +146,7 @@ REINDEX SCHEMA public;
 
 ## Query
 
-### Create user
+### Create User
 
 Create a user:
 ```sql
@@ -260,6 +260,107 @@ With the table altered as `logged`, to insert a million rows of data, the insert
 ALTER TABLE test SET LOGGED;
 ```
 
+## Mock and Monitor
+
+### Postgres Exporter + Prometheus + Grafana
+
+1. Install [postgres exporter](https://github.com/prometheus-community/postgres_exporter):
+```bash
+git clone https://github.com/prometheus-community/postgres_exporter.git
+cd postgres_exporter
+make build
+./postgres_exporter <flags>
+```
+
+2. Update the environment variables and re-run `./postgres_exporter`:
+```bash
+export DATA_SOURCE_NAME="postgresql://admin:admin@localhost:5432/test?sslmode=disable"
+export PG_EXPORTER_EXTEND_QUERY_PATH=queries.yaml
+```
+
+`queries.yaml` can be updated to include hard-coded `bloat` metrics:
+```yaml
+pg_bloat:
+  query: |
+    SELECT
+    	pg_relation_size('test_schema.test_table') as table_size_bytes,
+    	(pgstattuple('test_schema.test_table')).dead_tuple_percent,
+    	pg_relation_size('test_schema.test_table_pkey') as pkey_index_size,
+    	100-(pgstatindex('test_schema.test_table_pkey')).avg_leaf_density as pkey_bloat_ratio,
+    	pg_relation_size('test_schema.test_table_uuid') as uuid_index_size,
+    	100-(pgstatindex('test_schema.test_table_uuid')).avg_leaf_density as uuid_bloat_ratio,
+    	pg_relation_size('test_schema.test_table_feature_entity') as feature_entity_index_size,
+    	100-(pgstatindex('test_schema.test_table_feature_entity')).avg_leaf_density as feature_entity_bloat_ratio
+  metrics:
+    - table_size_bytes:
+        usage: "GAUGE"
+        description: "Disk space used by this table"
+    - dead_tuple_percent:
+        usage: "GAUGE"
+        description: "Dead tuple percentage by this table"
+    - uuid_index_size:
+        usage: "GAUGE"
+        description: "Index size by this table"
+    - uuid_bloat_ratio:
+        usage: "GAUGE"
+        description: "Index bloat ratio"
+    - pkey_index_size:
+        usage: "GAUGE"
+        description: "Index size by this table"
+    - pkey_bloat_ratio:
+        usage: "GAUGE"
+        description: "Index bloat ratio"
+    - feature_entity_index_size:
+        usage: "GAUGE"
+        description: "Index size by this table"
+    - feature_entity_bloat_ratio:
+        usage: "GAUGE"
+        description: "Index bloat ratio"
+```
+
+3. Download and unzip the Prometheus [binary](https://prometheus.io/download/).
+
+4. Update `prometheus.yml` and run `./prometheus`:
+```yaml
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "postgres_exporter"
+    static_configs:
+      - targets: [ "localhost:9187" ]
+```
+
+5. Check in query whether the metric `pg_settings_autovacuum` and `pg_stat_user_tables_n_live_tup` exists.
+
+6. Download and unzip the Grafana [binary](https://grafana.com/docs/grafana/latest/installation/mac/), and run `./bin/grafana-server web`.
+
+7. Create the extension `pg_stat_statements` in PostgreSQL in order to track query execution time:
+```sql
+CREATE EXTENSION pg_stat_statements;
+```
+
+8. Update the config in `/usr/local/var/postgres/postgresql.conf` for the extension `pg_stat_statements` and restart PostgreSQL by `brew services restart postgresql`:
+```yaml
+shared_preload_libraries = 'pg_stat_statements'	# (change requires restart)
+```
+
+### Mock DB Job and Queries
+
+1. Start the mocked DB bulk insert/update/cleanup job:
+```bash
+python mock_db_job.py
+```
+
+2. Start the mocked DB queries 15 seconds later:
+```bash
+python mock_queries.py
+```
+
+### Result
+
+
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
 * https://spin.atomicobject.com/2021/02/04/redis-postgresql/
@@ -269,3 +370,5 @@ ALTER TABLE test SET LOGGED;
 * https://wiki.postgresql.org/wiki/Slow_Query_Questions
 * https://wiki.postgresql.org/wiki/Performance_Optimization
 * https://www.highgo.ca/2021/03/20/how-to-check-and-resolve-bloat-in-postgresql/
+* https://medium.com/krakensystems-blog/how-well-does-your-vacuumer-vacuum-80cf19d342ec
+* https://www.postgresql.org/docs/14/pgstatstatements.html
