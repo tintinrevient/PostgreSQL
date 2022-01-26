@@ -157,6 +157,7 @@ Grant the operation rights:
 ```sql
 GRANT ALL PRIVILEGES ON DATABASE test TO admin;
 GRANT USAGE ON SCHEMA test_schema TO admin;
+GRANT USAGE, SELECT ON SEQUENCE test_seq TO admin;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA test_schema TO admin;
 ```
 
@@ -370,5 +371,8 @@ python mock_queries.py
 * https://wiki.postgresql.org/wiki/Slow_Query_Questions
 * https://wiki.postgresql.org/wiki/Performance_Optimization
 * https://www.highgo.ca/2021/03/20/how-to-check-and-resolve-bloat-in-postgresql/
+* https://developer.aiven.io/docs/products/postgresql/reference/pg-metrics
+* https://prometheus.io/docs/guides/node-exporter/
 * https://medium.com/krakensystems-blog/how-well-does-your-vacuumer-vacuum-80cf19d342ec
 * https://www.postgresql.org/docs/14/pgstatstatements.html
+
