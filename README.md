@@ -361,6 +361,9 @@ python mock_queries.py
 
 ### Result
 
+<p float="left">
+	<img src="pix/db_truncate.png" width=600 />
+</p>
 
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
