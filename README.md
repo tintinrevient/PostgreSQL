@@ -384,3 +384,4 @@ python mock_queries.py
 * https://www.postgresql.org/docs/current/populate.html#POPULATE-COPY-FROM
 * https://stackoverflow.com/questions/8290900/best-way-to-delete-millions-of-rows-by-id
 * https://prometheus.io/docs/prometheus/latest/querying/functions/
+* https://www.2ndquadrant.com/en/blog/postgresql-vacuum-and-analyze-best-practice-tips/
