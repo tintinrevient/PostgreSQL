@@ -375,4 +375,10 @@ python mock_queries.py
 * https://prometheus.io/docs/guides/node-exporter/
 * https://medium.com/krakensystems-blog/how-well-does-your-vacuumer-vacuum-80cf19d342ec
 * https://www.postgresql.org/docs/14/pgstatstatements.html
-
+* https://www.postgresqltutorial.com/postgresql-python/call-stored-procedures/
+* https://blog.timescale.com/blog/top-5-postgresql-extensions/
+* https://naysan.ca/2020/05/09/pandas-to-postgresql-using-psycopg2-bulk-insert-performance-benchmark/
+* https://stackoverflow.com/questions/8134602/psycopg2-insert-multiple-rows-with-one-query
+* https://stackoverflow.com/questions/12206600/how-to-speed-up-insertion-performance-in-postgresql
+* https://www.postgresql.org/docs/current/populate.html#POPULATE-COPY-FROM
+* https://stackoverflow.com/questions/8290900/best-way-to-delete-millions-of-rows-by-id
