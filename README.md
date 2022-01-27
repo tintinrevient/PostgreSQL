@@ -385,3 +385,6 @@ python mock_queries.py
 * https://stackoverflow.com/questions/8290900/best-way-to-delete-millions-of-rows-by-id
 * https://prometheus.io/docs/prometheus/latest/querying/functions/
 * https://www.2ndquadrant.com/en/blog/postgresql-vacuum-and-analyze-best-practice-tips/
+* https://www.postgresql.org/docs/current/runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+* https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-VACUUM-COST-DELAY
+* https://www.postgresql.org/docs/11/routine-reindex.html
