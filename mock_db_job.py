@@ -130,6 +130,7 @@ def update_tuples(cursor) -> None:
     end = time.time()
     print(f"{end - start} seconds are taken to update the table.")
 
+
 def truncate_inactive_expired_tuples(cursor, days) -> None:
     start = time.time()
 

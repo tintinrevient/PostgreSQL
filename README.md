@@ -375,4 +375,3 @@ python mock_queries.py
 * https://prometheus.io/docs/guides/node-exporter/
 * https://medium.com/krakensystems-blog/how-well-does-your-vacuumer-vacuum-80cf19d342ec
 * https://www.postgresql.org/docs/14/pgstatstatements.html
-
