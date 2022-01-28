@@ -393,3 +393,4 @@ python mock_queries.py
 * https://stackoverflow.com/questions/62409107/why-autoanalyze-not-ran-when-autovacuum-performed
 * https://www.postgresql.org/docs/current/monitoring.html
 * https://www.postgresql.org/docs/14/monitoring-stats.html
+* https://www.postgresql.org/docs/9.5/wal-configuration.html
