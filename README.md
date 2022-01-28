@@ -388,3 +388,4 @@ python mock_queries.py
 * https://www.postgresql.org/docs/current/runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
 * https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-VACUUM-COST-DELAY
 * https://www.postgresql.org/docs/11/routine-reindex.html
+* https://stackoverflow.com/questions/6217643/is-there-a-way-to-get-postgres-show-actual-i-o-for-query
