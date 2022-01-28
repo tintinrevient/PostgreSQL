@@ -391,4 +391,9 @@ python mock_queries.py
 * https://stackoverflow.com/questions/6217643/is-there-a-way-to-get-postgres-show-actual-i-o-for-query
 * https://www.postgresql.org/docs/current/monitoring-stats.html
 * https://stackoverflow.com/questions/62409107/why-autoanalyze-not-ran-when-autovacuum-performed
+* https://www.postgresql.org/docs/current/monitoring.html
 * https://www.postgresql.org/docs/14/monitoring-stats.html
+* https://www.postgresql.org/docs/9.5/wal-configuration.html
+* https://www.datadoghq.com/blog/postgresql-vacuum-monitoring/
+* https://www.postgresql.org/docs/current/storage-vm.html
+* https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-VACUUM-COST-PAGE-HIT
