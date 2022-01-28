@@ -5,6 +5,7 @@ VACUUM FULL test_schema.test_table;
 REINDEX SCHEMA test_schema;
 
 -- AUTOVACUUM
+SELECT name, setting FROM pg_settings WHERE name='track_counts';
 SELECT name, setting FROM pg_settings WHERE category = 'Autovacuum';
 SELECT schemaname, relname, last_vacuum, last_autovacuum, last_analyze, last_autoanalyze, vacuum_count, autovacuum_count, analyze_count, autoanalyze_count FROM pg_stat_user_tables;
 SELECT relname, n_live_tup, n_dead_tup FROM pg_stat_user_tables;
@@ -27,3 +28,17 @@ SELECT pid, user, query_start, now() - query_start AS query_time, query, state, 
 FROM pg_stat_activity WHERE (now() - pg_stat_activity.query_start) > interval '5 minutes';
 
 SELECT * FROM pg_stat_statements LIMIT 1;
+
+-- LIVE TUPLES
+SELECT reltuples FROM pg_class WHERE relname='test_table';
+SELECT n_live_tup, n_dead_tup FROM pg_stat_user_tables WHERE relname='test_table';
+
+-- TABLE SIZE
+SELECT relname, pg_size_pretty(pg_table_size(oid)) FROM pg_class WHERE relname = 'test_table';
+
+-- TABLE SETTING
+SELECT reloptions FROM pg_class WHERE relname='test_tables';
+
+-- AUTOVACUUM WORKER PROCESS
+-- ps -axww | grep autovacuum
+SELECT * FROM pg_stat_progress_vacuum;

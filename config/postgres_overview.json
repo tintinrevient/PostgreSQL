@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 3,
-  "iteration": 1643233505042,
+  "iteration": 1643365555091,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -38,8 +38,417 @@
       },
       "id": 10,
       "panels": [],
-      "title": "Rows",
+      "title": "Vacuum / Analyze",
       "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "vacuum_backends",
+                  "analyze_backends"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_stat_backend_vacuum_count",
+          "interval": "",
+          "legendFormat": "vacuum_backends",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "pg_stat_backend_analyze_count",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "analyze_backends",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "pg_stat_backend_create_index_count",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "create_index_backends",
+          "refId": "C"
+        }
+      ],
+      "title": "Current Backends",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 12,
+        "y": 1
+      },
+      "id": 38,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_stat_user_tables_last_autovacuum{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"} * 1000",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autovacuum",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last Autovacuum",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 15,
+        "y": 1
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_user_tables_autovacuum_count{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[60m]) * 60 * 60",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Autovacuum (1h)",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 18,
+        "y": 1
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_stat_user_tables_last_autoanalyze{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"} * 1000",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Last Autoanalyze",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "id": 41,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_user_tables_autoanalyze_count{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[60m]) * 60 * 60",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Autoanalyze (1h)",
+      "type": "stat"
     },
     {
       "datasource": null,
@@ -98,7 +507,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 1
+        "y": 5
       },
       "id": 27,
       "options": {
@@ -203,7 +612,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 1
+        "y": 5
       },
       "id": 29,
       "options": {
@@ -261,10 +670,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
+        "h": 10,
         "w": 12,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 4,
@@ -274,7 +683,7 @@
         "current": true,
         "max": true,
         "min": true,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -297,42 +706,50 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(irate(pg_stat_database_tup_fetched{instance=\"$instance\", datname=\"$db\"}[5m]))",
+          "expr": "irate(pg_stat_user_tables_n_tup_ins{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
           "interval": "",
-          "legendFormat": "fetched",
+          "legendFormat": "inserted",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum(irate(pg_stat_database_tup_returned{instance=\"$instance\", datname=\"$db\"}[5m]))",
+          "expr": "irate(pg_stat_user_tables_n_tup_upd{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
           "hide": false,
           "interval": "",
-          "legendFormat": "returned",
+          "legendFormat": "updated",
           "refId": "B"
         },
         {
           "exemplar": true,
-          "expr": "sum(irate(pg_stat_database_tup_inserted{instance=\"$instance\", datname=\"$db\"}[5m]))",
+          "expr": "irate(pg_stat_user_tables_n_tup_hot_upd{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
           "hide": false,
           "interval": "",
-          "legendFormat": "inserted",
+          "legendFormat": "updated_hot",
           "refId": "C"
         },
         {
           "exemplar": true,
-          "expr": "sum(irate(pg_stat_database_tup_updated{instance=\"$instance\", datname=\"$db\"}[5m]))",
+          "expr": "irate(pg_stat_user_tables_n_tup_del{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
           "hide": false,
           "interval": "",
-          "legendFormat": "updated",
+          "legendFormat": "deleted",
           "refId": "D"
         },
         {
           "exemplar": true,
-          "expr": "sum(irate(pg_stat_database_tup_deleted{instance=\"$instance\", datname=\"$db\"}[5m]))",
+          "expr": "pg_stat_user_tables_n_ins_since_vacuum{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}",
           "hide": false,
           "interval": "",
-          "legendFormat": "deleted",
+          "legendFormat": "inserted_since_vacuum",
           "refId": "E"
+        },
+        {
+          "exemplar": true,
+          "expr": "pg_stat_user_tables_n_mod_since_analyze{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "modified_since_analyze",
+          "refId": "F"
         }
       ],
       "thresholds": [],
@@ -385,21 +802,23 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
+        "h": 10,
         "w": 12,
         "x": 12,
-        "y": 9
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 2,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -419,7 +838,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "pg_stat_user_tables_n_live_tup{instance=\"$instance\", datname=\"$db\"}",
+          "expr": "pg_stat_user_tables_n_live_tup{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "live_tuples",
@@ -427,7 +846,7 @@
         },
         {
           "exemplar": true,
-          "expr": "pg_stat_user_tables_n_dead_tup{instance=\"$instance\", datname=\"$db\"}",
+          "expr": "pg_stat_user_tables_n_dead_tup{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}",
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
@@ -442,13 +861,709 @@
           "intervalFactor": 2,
           "legendFormat": "vacuum_threshold",
           "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "pg_stat_user_tables_n_mod_since_analyze{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "modified_tuples",
+          "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "pg_settings_autovacuum_analyze_threshold{instance=\"$instance\"} + pg_settings_autovacuum_analyze_scale_factor{instance=\"$instance\"} * ignoring(datname, schemaname, relname) pg_stat_user_tables_n_live_tup{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "analyze_threshold",
+          "refId": "E"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Live / Dead Rows",
+      "title": "Live / Dead / Modified Rows",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:418",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:419",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 0,
+        "y": 23
+      },
+      "id": 45,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_wal_wal_buffers_full[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "wal_buffers_full",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_wal_wal_write[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "wal_write",
+          "refId": "B"
+        }
+      ],
+      "title": "WAL - Write to Disk",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 9,
+        "x": 9,
+        "y": 23
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_wal_wal_bytes[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "wal_bytes",
+          "refId": "A"
+        }
+      ],
+      "title": "WAL Buffers",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 18,
+        "y": 23
+      },
+      "id": 47,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_settings_max_wal_size_bytes{instance=\"$instance\"}",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autovacuum",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Max WAL Size",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 23
+      },
+      "id": 48,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_settings_wal_buffers_bytes{instance=\"$instance\"}",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "WAL Buffers",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 18,
+        "y": 27
+      },
+      "id": 49,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_settings_effective_cache_size_bytes{instance=\"$instance\"}",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Effective Cache",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 27
+      },
+      "id": 50,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_settings_shared_buffers_bytes{instance=\"$instance\"}",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autovacuum",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "last_autoanalyze",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Shared Buffers",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 51,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_bgwriter_checkpoints_req[1m]) * 60",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "checkpoints_requested",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_bgwriter_checkpoints_timed[1m]) * 60",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "checkpoints_timed",
+          "refId": "B"
+        }
+      ],
+      "title": "Checkpoint BGWrite",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 43,
+      "panels": [],
+      "title": "Queries",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 18,
+        "x": 0,
+        "y": 38
+      },
+      "hiddenSeries": false,
+      "id": 37,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.2.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_user_tables_seq_scan{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
+          "interval": "",
+          "legendFormat": "seq_scan",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_user_tables_seq_tup_read{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "seq_read",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_user_tables_idx_scan{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "index_scan",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "rate(pg_stat_user_tables_idx_tup_fetch{instance=\"$instance\", datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"}[1m])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "index_fetch",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Queries (1m)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -535,40 +1650,15 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "INSERT INTO test_schema.test_table (\n        featureDefRef,\n        entityId,\n        valueStr,\n        active,\n        uuid,\n        timestamp,\n        expire\n    ) VALUES ($1,$2,$3,$4,$5,$6::timestamp,$7::timestamp),($8,$9,$10,$11,$12,$13::timestamp,$14::timestamp),($15,$16,$17,$18,$19,$20::timestamp,$21::timestamp),($22,$23,$24,$25,$26,$27::timestamp,$28::timestamp),($29,$30,$31,$32,$33,$34::timestamp,$35::timestamp),($36,$37,$38,$39,$40,$41::timestamp,$42::timestamp),($43,$44,$45,$46,$47,$48::timestamp,$49::timestamp),($50,$51,$52,$53,$54,$55::timestamp,$56::timestamp),($57,$58,$59,$60,$61,$62::timestamp,$63::timestamp),($64,$65,$66,$67,$68,$69::timestamp,$70::timestamp),($71,$72,$73,$74,$75,$76::timestamp,$77::timestamp),($78,$79,$80,$81,$82,$83::timestamp,$84::timestamp),($85,$86,$87,$88,$89,$90::timestamp,$91::timestamp),($92,$93,$94,$95,$96,$97::timestamp,$98::timestamp),($99,$100,$101,$102,$103,$104::timestamp,$105::timestamp),($106,$107,$108,$109,$110,$111::timestamp,$112::timestamp),($113,$114,$115,$116,$117,$118::timestamp,$119::timestamp),($120,$121,$122,$123,$124,$125::timestamp,$126::timestamp),($127,$128,$129,$130,$131,$132::timestamp,$133::timestamp),($134,$135,$136,$137,$138,$139::timestamp,$140::timestamp),($141,$142,$143,$144,$145,$146::timestamp,$147::timestamp),($148,$149,$150,$151,$152,$153::timestamp,$154::timestamp),($155,$156,$157,$158,$159,$160::timestamp,$161::timestamp),($162,$163,$164,$165,$166,$167::timestamp,$168::timestamp),($169,$170,$171,$172,$173,$174::timestamp,$175::timestamp),($176,$177,$178,$179,$180,$181::timestamp,$182::timestamp),($183,$184,$185,$186,$187,$188::timestamp,$189::timestamp),($190,$191,$192,$193,$194,$195::timestamp,$196::timestamp),($197,$198,$199,$200,$201,$202::timestamp,$203::timestamp),($204,$205,$206,$207,$208,$209::timestamp,$210::timestamp),($211,$212,$213,$214,$215,$216::timestamp,$217::timestamp),($218,$219,$220,$221,$222,$223::timestamp,$224::timestamp),($225,$226,$227,$228,$229,$230::timestamp,$231::timestamp),($232,$233,$234,$235,$236,$237::timestamp,$238::timestamp),($239,$240,$241,$242,$243,$244::timestamp,$245::timestamp),($246,$247,$248,$249,$250,$251::timestamp,$252::timestamp),($253,$254,$255,$256,$257,$258::timestamp,$259::timestamp),($260,$261,$262,$263,$264,$265::timestamp,$266::timestamp),($267,$268,$269,$270,$271,$272::timestamp,$273::timestamp),($274,$275,$276,$277,$278,$279::timestamp,$280::timestamp),($281,$282,$283,$284,$285,$286::timestamp,$287::timestamp),($288,$289,$290,$291,$292,$293::timestamp,$294::timestamp),($295,$296,$297,$298,$299,$300::timestamp,$301::timestamp),($302,$303,$304,$305,$306,$307::timestamp,$308::timestamp),($309,$310,$311,$312,$313,$314::timestamp,$315::timestamp),($316,$317,$318,$319,$320,$321::timestamp,$322::timestamp),($323,$324,$325,$326,$327,$328::timestamp,$329::timestamp),($330,$331,$332,$333,$334,$335::timestamp,$336::timestamp),($337,$338,$339,$340,$341,$342::timestamp,$343::timestamp),($344,$345,$346,$347,$348,$349::timestamp,$350::timestamp),($351,$352,$353,$354,$355,$356::timestamp,$357::timestamp),($358,$359,$360,$361,$362,$363::timestamp,$364::timestamp),($365,$366,$367,$368,$369,$370::timestamp,$371::timestamp),($372,$373,$374,$375,$376,$377::timestamp,$378::timestamp),($379,$380,$381,$382,$383,$384::timestamp,$385::timestamp),($386,$387,$388,$389,$390,$391::timestamp,$392::timestamp),($393,$394,$395,$396,$397,$398::timestamp,$399::timestamp),($400,$401,$402,$403,$404,$405::timestamp,$406::timestamp),($407,$408,$409,$410,$411,$412::timestamp,$413::timestamp),($414,$415,$416,$417,$418,$419::timestamp,$420::timestamp),($421,$422,$423,$424,$425,$426::timestamp,$427::timestamp),($428,$429,$430,$431,$432,$433::timestamp,$434::timestamp),($435,$436,$437,$438,$439,$440::timestamp,$441::timestamp),($442,$443,$444,$445,$446,$447::timestamp,$448::timestamp),($449,$450,$451,$452,$453,$454::timestamp,$455::timestamp),($456,$457,$458,$459,$460,$461::timestamp,$462::timestamp),($463,$464,$465,$466,$467,$468::timestamp,$469::timestamp),($470,$471,$472,$473,$474,$475::timestamp,$476::timestamp),($477,$478,$479,$480,$481,$482::timestamp,$483::timestamp),($484,$485,$486,$487,$488,$489::timestamp,$490::timestamp),($491,$492,$493,$494,$495,$496::timestamp,$497::timestamp),($498,$499,$500,$501,$502,$503::timestamp,$504::timestamp),($505,$506,$507,$508,$509,$510::timestamp,$511::timestamp),($512,$513,$514,$515,$516,$517::timestamp,$518::timestamp),($519,$520,$521,$522,$523,$524::timestamp,$525::timestamp),($526,$527,$528,$529,$530,$531::timestamp,$532::timestamp),($533,$534,$535,$536,$537,$538::timestamp,$539::timestamp),($540,$541,$542,$543,$544,$545::timestamp,$546::timestamp),($547,$548,$549,$550,$551,$552::timestamp,$553::timestamp),($554,$555,$556,$557,$558,$559::timestamp,$560::timestamp),($561,$562,$563,$564,$565,$566::timestamp,$567::timestamp),($568,$569,$570,$571,$572,$573::timestamp,$574::timestamp),($575,$576,$577,$578,$579,$580::timestamp,$581::timestamp),($582,$583,$584,$585,$586,$587::timestamp,$588::timestamp),($589,$590,$591,$592,$593,$594::timestamp,$595::timestamp),($596,$597,$598,$599,$600,$601::timestamp,$602::timestamp),($603,$604,$605,$606,$607,$608::timestamp,$609::timestamp),($610,$611,$612,$613,$614,$615::timestamp,$616::timestamp),($617,$618,$619,$620,$621,$622::timestamp,$623::timestamp),($624,$625,$626,$627,$628,$629::timestamp,$630::timestamp),($631,$632,$633,$634,$635,$636::timestamp,$637::timestamp),($638,$639,$640,$641,$642,$643::timestamp,$644::timestamp),($645,$646,$647,$648,$649,$650::timestamp,$651::timestamp),($652,$653,$654,$655,$656,$657::timestamp,$658::timestamp),($659,$660,$661,$662,$663,$664::timestamp,$665::timestamp),($666,$667,$668,$669,$670,$671::timestamp,$672::timestamp),($673,$674,$675,$676,$677,$678::timestamp,$679::timestamp),($680,$681,$682,$683,$684,$685::timestamp,$686::timestamp),($687,$688,$689,$690,$691,$692::timestamp,$693::timestamp),($694,$695,$696,$697,$698,$699::timestamp,$700::timestamp)"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 15
+        "h": 7,
+        "w": 6,
+        "x": 18,
+        "y": 38
       },
-      "id": 31,
+      "id": 33,
       "options": {
         "legend": {
           "calcs": [],
@@ -579,7 +1669,68 @@
           "mode": "single"
         }
       },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "pg_statio_user_tables_heap_blks_hit{datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"} / (pg_statio_user_tables_heap_blks_hit{datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"} + pg_statio_user_tables_heap_blks_read{datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"})",
+          "interval": "",
+          "legendFormat": "table_cache_hit_ratio",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "pg_statio_user_tables_idx_blks_hit{datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"} / (pg_statio_user_tables_idx_blks_hit{datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"} + pg_statio_user_tables_idx_blks_read{datname=\"$db\", schemaname=\"$schema\", relname=\"$table\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "index_cache_hit_ratio",
+          "refId": "B"
+        }
+      ],
+      "title": "Cache Hit Ratio",
+      "type": "timeseries"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "hiddenSeries": false,
+      "id": 31,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
       "pluginVersion": "8.2.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
           "exemplar": true,
@@ -590,8 +1741,46 @@
           "refId": "A"
         }
       ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
       "title": "Query Mean Time (Seconds)",
-      "type": "timeseries"
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -600,7 +1789,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 55
       },
       "id": 12,
       "panels": [],
@@ -663,7 +1852,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 56
       },
       "id": 6,
       "options": {
@@ -752,7 +1941,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 56
       },
       "id": 8,
       "options": {
@@ -784,7 +1973,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 64
       },
       "id": 14,
       "panels": [],
@@ -847,7 +2036,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 65
       },
       "id": 16,
       "options": {
@@ -928,7 +2117,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 65
       },
       "id": 18,
       "options": {
@@ -968,7 +2157,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 73
       },
       "id": 20,
       "panels": [],
@@ -1031,7 +2220,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 42
+        "y": 74
       },
       "id": 22,
       "options": {
@@ -1110,9 +2299,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
+        "w": 12,
         "x": 12,
-        "y": 42
+        "y": 74
       },
       "id": 24,
       "options": {
@@ -1136,89 +2325,9 @@
       ],
       "title": "Temp File",
       "type": "timeseries"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 18,
-        "y": 42
-      },
-      "id": 25,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(pg_stat_database_blks_hit{instance=\"$instance\", datname=\"$db\"}) / (sum(pg_stat_database_blks_hit{instance=\"$instance\", datname=\"$db\"}) + sum(pg_stat_database_blks_read{instance=\"$instance\", datname=\"$db\"}))",
-          "interval": "",
-          "legendFormat": "cache_hit_rates",
-          "refId": "A"
-        }
-      ],
-      "title": "Cache Hit Ratio",
-      "type": "timeseries"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 32,
   "style": "dark",
   "tags": [],
@@ -1335,12 +2444,12 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Postgres Overview",
   "uid": "Nmu0A2b7k",
-  "version": 27
+  "version": 84
 }

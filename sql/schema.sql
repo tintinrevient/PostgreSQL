@@ -40,3 +40,6 @@ SELECT * FROM pg_available_extensions WHERE name = 'pg_stat_statements' and inst
 
 -- UNLOGGED
 ALTER TABLE test_schema.test_table SET UNLOGGED;
+
+-- AUTOVACUUM
+ALTER TABLE test_schema.test_table SET (autovacuum_enabled=true, autovacuum_vacuum_scale_factor=0, autovacuum_vacuum_threshold=100, autovacuum_vacuum_cost_limit=1000, autovacuum_analyze_scale_factor=0, autovacuum_analyze_threshold=100)
