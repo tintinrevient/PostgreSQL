@@ -398,3 +398,4 @@ python mock_queries.py
 * https://www.postgresql.org/docs/current/storage-vm.html
 * https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-VACUUM-COST-PAGE-HIT
 * https://www.postgresqltutorial.com/postgresql-database-indexes-table-size/
+* https://sysdig.com/blog/postgresql-monitoring/
