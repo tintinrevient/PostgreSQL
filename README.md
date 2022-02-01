@@ -400,3 +400,4 @@ python mock_queries.py
 * https://www.postgresqltutorial.com/postgresql-database-indexes-table-size/
 * https://sysdig.com/blog/postgresql-monitoring/
 * https://hakibenita.com/postgresql-hash-index
+* https://dev.to/rhymes/how-to-build-unique-indexes-in-postgresql-on-large-text-3e6d
