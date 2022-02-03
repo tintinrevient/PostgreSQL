@@ -401,3 +401,4 @@ python mock_queries.py
 * https://sysdig.com/blog/postgresql-monitoring/
 * https://hakibenita.com/postgresql-hash-index
 * https://dev.to/rhymes/how-to-build-unique-indexes-in-postgresql-on-large-text-3e6d
+* https://www.postgresql.org/docs/13/wal-internals.html
