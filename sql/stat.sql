@@ -42,3 +42,12 @@ SELECT reloptions FROM pg_class WHERE relname='test_tables';
 -- AUTOVACUUM WORKER PROCESS
 -- ps -axww | grep autovacuum
 SELECT * FROM pg_stat_progress_vacuum;
+
+-- INDEX
+SELECT am.amname AS index_method, opc.opcname AS opclass_name, opc.opcintype::regtype AS indexed_type, opc.opcdefault AS is_default 
+FROM pg_am am INNER JOIN pg_opclass opc ON opc.opcmethod = am.oid WHERE am.amname = 'btree'
+ORDER BY index_method, indexed_type, opclass_name;
+
+CREATE INDEX idx1 ON test_schema.test_table USING btree (column_name text_pattern_ops);
+CREATE INDEX idx2 ON test_schema.test_table USING btree (column_name);
+
