@@ -387,6 +387,15 @@ To reload:
 SELECT pg_reload_conf();
 ```
 
+### pg_stat_activity
+
+To cancel or terminate the queries on the connection:
+```sql
+SELECT * FROM pg_stat_activity;
+SELECT pg_cancel_backend(pid);
+SELECT pg_terminate_backend(pid)
+```
+
 
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
