@@ -365,7 +365,7 @@ python mock_queries.py
 
 ## Hardware
 
-### Setting
+### pg_settings
 
 * `shared_buffers`: Defines the amount of memory shared among all connections to store **recently accessed pages**. This setting profoundly affects the speed of your queries.
 * `effective_cache_size`: An estimate of how much memory you expect to be available in the OS and PostgreSQL buffer caches. Query planner figures in this setting to guess whether **intermediate steps** and **query output would** fit in RAM.
@@ -381,6 +381,12 @@ SHOW work_mem;
 SHOW maintenance_work_mem;
 SHOW ALL;
 ```
+
+To reload:
+```sql
+SELECT pg_reload_conf();
+```
+
 
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
