@@ -439,3 +439,4 @@ SELECT pg_terminate_backend(pid)
 * https://www.postgresql.org/docs/13/wal-internals.html
 * https://adriennedomingus.com/blog/understanding-temp-files-in-postgres
 * https://www.postgresql.org/docs/current/indexes-opclass.html
+* https://www.depesz.com/2011/07/03/understanding-postgresql-conf-work_mem/
