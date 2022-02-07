@@ -363,6 +363,25 @@ python mock_queries.py
 
 ![db_truncate](pix/db_truncate.png)
 
+## Hardware
+
+### Setting
+
+* `shared_buffers`: Defines the amount of memory shared among all connections to store **recently accessed pages**. This setting profoundly affects the speed of your queries.
+* `effective_cache_size`: An estimate of how much memory you expect to be available in the OS and PostgreSQL buffer caches. Query planner figures in this setting to guess whether **intermediate steps** and **query output would** fit in RAM.
+* `work_mem`: Controls the maximum amount of memory allocated for operations such as **sorting**, **hash join**, and **table scans**. 
+* `maintenance_work_mem`: The total memory allocated for housekeeping activities such as **vacuuming**.
+
+```sql
+SELECT name, setting FROM pg_settings;
+
+SHOW shared_buffers;
+SHOW effective_cache_size;
+SHOW work_mem;
+SHOW maintenance_work_mem;
+SHOW ALL;
+```
+
 ## References
 * https://www.cybertec-postgresql.com/en/postgresql-vs-redis-vs-memcached-performance/
 * https://spin.atomicobject.com/2021/02/04/redis-postgresql/
