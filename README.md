@@ -442,3 +442,4 @@ SELECT pg_terminate_backend(pid)
 * https://www.depesz.com/2011/07/03/understanding-postgresql-conf-work_mem/
 * https://obartunov.livejournal.com/177977.html
 * http://hlinnaka.iki.fi/2014/03/28/gin-as-a-substitute-for-bitmap-indexes/
+* https://www.depesz.com/2014/03/25/waiting-for-9-4-introduce-jsonb-a-structured-format-for-storing-json/
