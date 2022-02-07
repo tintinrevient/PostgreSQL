@@ -435,5 +435,6 @@ SELECT pg_terminate_backend(pid)
 * https://sysdig.com/blog/postgresql-monitoring/
 * https://hakibenita.com/postgresql-hash-index
 * https://dev.to/rhymes/how-to-build-unique-indexes-in-postgresql-on-large-text-3e6d
+* https://stackoverflow.com/questions/2117732/reasons-why-sha512-is-superior-to-md5/38083855#38083855
 * https://www.postgresql.org/docs/13/wal-internals.html
 * https://adriennedomingus.com/blog/understanding-temp-files-in-postgres
