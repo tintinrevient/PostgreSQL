@@ -446,3 +446,4 @@ SELECT pg_terminate_backend(pid)
 * https://www.depesz.com/2014/03/25/waiting-for-9-4-introduce-jsonb-a-structured-format-for-storing-json/
 * http://www.postgresonline.com/journal/archives/154-In-Defense-of-varcharx.html
 * https://www.postgresql.org/docs/current/runtime-config-query.html
+* https://www.postgresql.org/docs/current/ddl-partitioning.html
